@@ -1,0 +1,29 @@
+main: net.trivernis.superutils.Main
+name: SuperUtils
+version: '1.0 SNAPSHOT'
+description: Utility commands plugin.
+author: Trivernis
+website: trivernis.net
+commands:
+  c:
+    description: spectator night vision
+    permission: superutils.c
+    permission-message: You do not have permission!
+    usage: /c
+  h:
+    description: teleport to default home
+    permission: superutils.h
+    permission-message: You do not have permission!
+    usage: /h
+permissions:
+  superutils.c:
+    description: Allows c command
+    default: op
+  superutils.h:
+    description: Allow h command
+    default: op
+  superutils.*:
+    description: Wildcard permission
+    default: op
+    children:
+      superutils.c: true
