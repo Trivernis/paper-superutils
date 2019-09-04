@@ -28,6 +28,8 @@ class CommandC(private var multiverseCore: MultiverseCore?): CommandExecutor {
                 }
             }
             return true
+        } else {
+            sender.sendMessage("This command can only be executed by a player.");
         }
         return false
     }

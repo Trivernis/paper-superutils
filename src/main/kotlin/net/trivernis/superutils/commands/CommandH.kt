@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerTeleportEvent
+import java.lang.Exception
 
 class CommandH(private var essentials: Essentials) : CommandExecutor, TabCompleter {
 
@@ -35,7 +36,11 @@ class CommandH(private var essentials: Essentials) : CommandExecutor, TabComplet
             val essUser = essentials.getUser(sender)
             val userHome: Location
             userHome = if (args.isNotEmpty()) {
-                essUser.getHome(args[0])
+                try {
+                    essUser.getHome(args[0])
+                } catch (e: Exception) {
+                    null
+                } as Location
             } else {
                 essUser.getHome("home")
             }
@@ -46,6 +51,8 @@ class CommandH(private var essentials: Essentials) : CommandExecutor, TabComplet
                 essUser.sendMessage("The specified home was not found.")
             }
             return true
+        } else {
+            sender.sendMessage("This command can only be executed by a player.");
         }
         return false
     }

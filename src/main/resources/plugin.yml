@@ -14,13 +14,21 @@ commands:
     description: teleport to default home
     permission: superutils.h
     permission-message: You do not have permission!
-    usage: /h
+    usage: /h [home]
+  wp:
+    description: warp to essentials warp point
+    permission: superutils.wp
+    permission-message: You do not have permission!
+    usage: /wp {warp}
 permissions:
   superutils.c:
     description: Allows c command
     default: op
   superutils.h:
     description: Allow h command
+    default: op
+  superutils.wp:
+    description: Allow wp command
     default: op
   superutils.*:
     description: Wildcard permission

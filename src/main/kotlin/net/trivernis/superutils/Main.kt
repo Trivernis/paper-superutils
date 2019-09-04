@@ -4,6 +4,7 @@ import com.earth2me.essentials.Essentials
 import com.onarandombox.MultiverseCore.MultiverseCore
 import net.trivernis.superutils.commands.CommandC
 import net.trivernis.superutils.commands.CommandH
+import net.trivernis.superutils.commands.CommandWp
 import org.bukkit.plugin.java.JavaPlugin
 
 class Main : JavaPlugin() {
@@ -12,13 +13,13 @@ class Main : JavaPlugin() {
      * Executed on plugin enable
      */
     override fun onEnable() {
-        logger.info("SuperUtils enabled.")
         getCommand("c")?.setExecutor(CommandC(getMultiverseCore()))
 
         val essentials = getEssentials()
         if (essentials != null) {
             logger.info("Registering short forms for Essentials plugin features.")
             getCommand("h")?.setExecutor(CommandH(essentials))
+            getCommand("wp")?.setExecutor(CommandWp(essentials))
         }
     }
 
