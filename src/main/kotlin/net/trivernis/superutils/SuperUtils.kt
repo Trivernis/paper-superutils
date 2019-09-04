@@ -5,17 +5,22 @@ import com.onarandombox.MultiverseCore.MultiverseCore
 import net.trivernis.superutils.commands.CommandC
 import net.trivernis.superutils.commands.CommandH
 import net.trivernis.superutils.commands.CommandWp
+import org.bukkit.configuration.file.FileConfiguration
+import org.bukkit.entity.Minecart
 import org.bukkit.plugin.java.JavaPlugin
 
-class Main : JavaPlugin() {
+class SuperUtils : JavaPlugin() {
 
     /**
      * Executed on plugin enable
      */
     override fun onEnable() {
-        getCommand("c")?.setExecutor(CommandC(getMultiverseCore()))
-
+        configure()
         val essentials = getEssentials()
+        val commandC = CommandC(getMultiverseCore(), essentials)
+        server.pluginManager.registerEvents(EventListener(config, essentials, commandC), this)
+        getCommand("c")?.setExecutor(commandC)
+
         if (essentials != null) {
             logger.info("Registering short forms for Essentials plugin features.")
             getCommand("h")?.setExecutor(CommandH(essentials))
@@ -50,5 +55,11 @@ class Main : JavaPlugin() {
             multiverseCore
         else
             null
+    }
+
+    private fun configure() {
+        config.addDefault("advancement-payout", 50)
+        config.options().copyDefaults(true)
+        saveConfig()
     }
 }

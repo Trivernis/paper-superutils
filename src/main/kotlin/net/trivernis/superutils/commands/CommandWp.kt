@@ -18,7 +18,7 @@ class CommandWp(private val essentials: Essentials): CommandExecutor, TabComplet
     override fun onTabComplete(sender: CommandSender, command: Command, alias: String, args: Array<out String>): MutableList<String> {
         if (sender is Player) {
             return if (args.isNotEmpty()) {
-                essentials.warps.list.filter{it.contains(args.first(), ignoreCase = true)}.toMutableList()
+                essentials.warps.list.filter { it.indexOf(args[0], ignoreCase = true) == 0 }.toMutableList()
             } else {
                 essentials.warps.list.toMutableList()
             }
@@ -33,10 +33,11 @@ class CommandWp(private val essentials: Essentials): CommandExecutor, TabComplet
         if (sender is Player) {
             if (args.isNotEmpty()) {
                 val essUser: User = essentials.getUser(sender)
-                val warp = essentials.warps.getWarp(args.first())
-                if (warp != null) {
+                if (essentials.warps.list.find { it.equals(args[0], ignoreCase = true) }?.isNotEmpty() == true) {
+                    val warp = essentials.warps.getWarp(args.first())
                     val teleportCost = Trade(essentials.settings.getCommandCost("warp"), essentials)
                     essUser.teleport.teleport(warp.block.location, teleportCost, PlayerTeleportEvent.TeleportCause.COMMAND)
+                    return true
                 } else {
                     sender.sendMessage("Warp \"${args.first()}\" not found")
                 }

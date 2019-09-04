@@ -1,4 +1,4 @@
-main: net.trivernis.superutils.Main
+main: net.trivernis.superutils.SuperUtils
 name: SuperUtils
 version: '1.0 SNAPSHOT'
 description: Utility commands plugin.

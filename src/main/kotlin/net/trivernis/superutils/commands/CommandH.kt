@@ -19,7 +19,8 @@ class CommandH(private var essentials: Essentials) : CommandExecutor, TabComplet
     override fun onTabComplete(sender: CommandSender, command: Command, alias: String, args: Array<out String>): MutableList<String> {
         return if (sender is Player && command.testPermission(sender)) {
             if (args.isNotEmpty()) {
-                essentials.getUser(sender).homes.filter {it.contains(args.first())}.toMutableList()
+                essentials.getUser(sender).homes
+                        .filter {it.indexOf(args[0], ignoreCase = true) == 0}.toMutableList()
             } else {
                 essentials.getUser(sender).homes
             }
