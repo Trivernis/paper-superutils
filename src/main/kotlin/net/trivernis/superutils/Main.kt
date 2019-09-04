@@ -1,6 +1,7 @@
 package net.trivernis.superutils
 
 import com.earth2me.essentials.Essentials
+import com.onarandombox.MultiverseCore.MultiverseCore
 import net.trivernis.superutils.commands.CommandC
 import net.trivernis.superutils.commands.CommandH
 import org.bukkit.plugin.java.JavaPlugin
@@ -11,17 +12,13 @@ class Main : JavaPlugin() {
      * Executed on plugin enable
      */
     override fun onEnable() {
-        val c = getCommand("c")
-        if (c != null) {
-            c.setExecutor(CommandC())
-        }
+        logger.info("SuperUtils enabled.")
+        getCommand("c")?.setExecutor(CommandC(getMultiverseCore()))
 
         val essentials = getEssentials()
         if (essentials != null) {
-            val h = getCommand("h")
-            if (h != null) {
-                h.setExecutor(CommandH(essentials))
-            }
+            logger.info("Registering short forms for Essentials plugin features.")
+            getCommand("h")?.setExecutor(CommandH(essentials))
         }
     }
 
@@ -41,5 +38,16 @@ class Main : JavaPlugin() {
             essentials;
         else
             null;
+    }
+
+    /**
+     * Returns instance of multiverse plugin
+     */
+    private fun getMultiverseCore(): MultiverseCore? {
+        val multiverseCore = server.pluginManager.getPlugin("Multiverse-Core")
+        return if (multiverseCore != null && multiverseCore is MultiverseCore)
+            multiverseCore
+        else
+            null
     }
 }

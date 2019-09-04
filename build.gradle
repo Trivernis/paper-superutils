@@ -30,12 +30,16 @@ repositories {
     maven {
         url "https://ci.ender.zone/plugin/repository/everything/"
     }
+    maven {
+        url "http://repo.onarandombox.com/content/repositories/multiverse/"
+    }
 }
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compileOnly "org.spigotmc:spigot-api:1.14.2-R0.1-SNAPSHOT"
     compileOnly 'net.ess3:EssentialsX:2.16.1'
+    compileOnly 'com.onarandombox.multiversecore:Multiverse-Core:4.0.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }

@@ -6,10 +6,26 @@ import org.bukkit.Location
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
+import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerTeleportEvent
 
-class CommandH(private var essentials: Essentials) : CommandExecutor {
+class CommandH(private var essentials: Essentials) : CommandExecutor, TabCompleter {
+
+    /**
+     * Tab completion suggestions for homes
+     */
+    override fun onTabComplete(sender: CommandSender, command: Command, alias: String, args: Array<out String>): MutableList<String> {
+        return if (sender is Player && command.testPermission(sender)) {
+            if (args.isNotEmpty()) {
+                essentials.getUser(sender).homes.filter {it.contains(args.first())}.toMutableList()
+            } else {
+                essentials.getUser(sender).homes
+            }
+        } else {
+            emptyList<String>().toMutableList()
+        }
+    }
 
     /**
      * Teleports the user to the default home or a specified one
@@ -23,8 +39,12 @@ class CommandH(private var essentials: Essentials) : CommandExecutor {
             } else {
                 essUser.getHome("home")
             }
-            essUser.teleport.teleport(userHome.block.location, null, PlayerTeleportEvent.TeleportCause.COMMAND)
-            essUser.sendMessage("You have been teleported home.")
+            if (userHome != null) {
+                essUser.teleport.teleport(userHome.block.location, null, PlayerTeleportEvent.TeleportCause.COMMAND)
+                essUser.sendMessage("You have been teleported home.")
+            } else {
+                essUser.sendMessage("The specified home was not found.")
+            }
             return true
         }
         return false
