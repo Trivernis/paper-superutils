@@ -5,6 +5,11 @@ description: Utility commands plugin.
 author: Trivernis
 website: trivernis.net
 commands:
+  reload:
+    description: reloads the config of the plugin
+    permission: superutils.reload
+    permission-message: You do not have permission to reload the configuration!
+    usage: /reload
   c:
     description: spectator night vision
     permission: superutils.c
@@ -21,6 +26,9 @@ commands:
     permission-message: You do not have permission!
     usage: /wp {warp}
 permissions:
+  superutils.reload:
+    description: Allows reload command
+    default: op
   superutils.c:
     description: Allows c command
     default: op

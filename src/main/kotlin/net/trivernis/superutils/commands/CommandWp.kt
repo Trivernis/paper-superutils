@@ -36,8 +36,13 @@ class CommandWp(private val essentials: Essentials): CommandExecutor, TabComplet
                 if (essentials.warps.list.find { it.equals(args[0], ignoreCase = true) }?.isNotEmpty() == true) {
                     val warp = essentials.warps.getWarp(args.first())
                     val teleportCost = Trade(essentials.settings.getCommandCost("warp"), essentials)
-                    essUser.teleport.teleport(warp.block.location, teleportCost, PlayerTeleportEvent.TeleportCause.COMMAND)
-                    return true
+                    if ((essUser.money - teleportCost.money) > essentials.settings.minMoney) {
+                        essUser.teleport.teleport(warp.block.location, teleportCost, PlayerTeleportEvent.TeleportCause.COMMAND)
+                        return true
+                    } else {
+                        sender.sendMessage("You do not have enough money for this command.")
+                        return true
+                    }
                 } else {
                     sender.sendMessage("Warp \"${args.first()}\" not found")
                 }

@@ -4,6 +4,7 @@ import com.earth2me.essentials.Essentials
 import com.onarandombox.MultiverseCore.MultiverseCore
 import net.trivernis.superutils.commands.CommandC
 import net.trivernis.superutils.commands.CommandH
+import net.trivernis.superutils.commands.CommandReload
 import net.trivernis.superutils.commands.CommandWp
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.entity.Minecart
@@ -19,6 +20,7 @@ class SuperUtils : JavaPlugin() {
         val essentials = getEssentials()
         val commandC = CommandC(getMultiverseCore(), essentials)
         server.pluginManager.registerEvents(EventListener(config, essentials, commandC), this)
+        getCommand("reload")?.setExecutor(CommandReload(this))
         getCommand("c")?.setExecutor(commandC)
 
         if (essentials != null) {
@@ -60,6 +62,5 @@ class SuperUtils : JavaPlugin() {
     private fun configure() {
         config.addDefault("advancement-payout", 50)
         config.options().copyDefaults(true)
-        saveConfig()
     }
 }

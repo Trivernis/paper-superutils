@@ -17,11 +17,19 @@ class CommandC(private var multiverseCore: MultiverseCore?, private var essentia
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         if (sender is Player && command.testPermission(sender)) {
             if (sender.gameMode != GameMode.SPECTATOR) {
-                sender.gameMode = GameMode.SPECTATOR
-                sender.addPotionEffect(PotionEffectType.NIGHT_VISION.createEffect(1000000, 255))
                 if (essentials != null) {
                     val commandCost = essentials!!.settings.getCommandCost("c")
-                    essentials!!.getUser(sender).takeMoney(commandCost)
+                    val essUser = essentials!!.getUser(sender)
+                    if ((essUser.money - commandCost) > essentials!!.settings.minMoney) {
+                        sender.gameMode = GameMode.SPECTATOR
+                        sender.addPotionEffect(PotionEffectType.NIGHT_VISION.createEffect(1000000, 255))
+                        essUser.takeMoney(commandCost)
+                    } else {
+                        sender.sendMessage("You do not have enough money for this command")
+                    }
+                } else {
+                    sender.gameMode = GameMode.SPECTATOR
+                    sender.addPotionEffect(PotionEffectType.NIGHT_VISION.createEffect(1000000, 255))
                 }
             } else {
                 sender.removePotionEffect(PotionEffectType.NIGHT_VISION)

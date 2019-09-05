@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerAdvancementDoneEvent
 import org.bukkit.event.player.PlayerGameModeChangeEvent
 import org.bukkit.potion.PotionEffectType
 
-class EventListener(private val config: FileConfiguration, private val essentials: Essentials?, private val commandC: CommandC,): Listener {
+class EventListener(private val config: FileConfiguration, private val essentials: Essentials?, private val commandC: CommandC): Listener {
     /**
      * Removes the night vision effect from the player if given by /c command
      */
