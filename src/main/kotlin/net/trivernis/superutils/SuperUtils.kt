@@ -19,8 +19,8 @@ class SuperUtils : JavaPlugin() {
         configure()
         val essentials = getEssentials()
         val commandC = CommandC(getMultiverseCore(), essentials)
-        server.pluginManager.registerEvents(EventListener(config, essentials, commandC), this)
-        getCommand("reload")?.setExecutor(CommandReload(this))
+        server.pluginManager.registerEvents(EventListener(config, essentials, commandC, server), this)
+        getCommand("superutils reload")?.setExecutor(CommandReload(this))
         getCommand("c")?.setExecutor(commandC)
 
         if (essentials != null) {
@@ -61,6 +61,7 @@ class SuperUtils : JavaPlugin() {
 
     private fun configure() {
         config.addDefault("advancement-payout", 50)
+        config.addDefault("save-notification", false)
         config.options().copyDefaults(true)
     }
 }

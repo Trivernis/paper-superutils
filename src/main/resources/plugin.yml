@@ -5,7 +5,7 @@ description: Utility commands plugin.
 author: Trivernis
 website: trivernis.net
 commands:
-  reload:
+  'superutils reload':
     description: reloads the config of the plugin
     permission: superutils.reload
     permission-message: You do not have permission to reload the configuration!
