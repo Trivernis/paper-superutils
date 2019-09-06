@@ -2,10 +2,7 @@ package net.trivernis.superutils
 
 import com.earth2me.essentials.Essentials
 import com.onarandombox.MultiverseCore.MultiverseCore
-import net.trivernis.superutils.commands.CommandC
-import net.trivernis.superutils.commands.CommandH
-import net.trivernis.superutils.commands.CommandReload
-import net.trivernis.superutils.commands.CommandWp
+import net.trivernis.superutils.commands.*
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.entity.Minecart
 import org.bukkit.plugin.java.JavaPlugin
@@ -19,8 +16,9 @@ class SuperUtils : JavaPlugin() {
         configure()
         val essentials = getEssentials()
         val commandC = CommandC(getMultiverseCore(), essentials)
-        server.pluginManager.registerEvents(EventListener(config, essentials, commandC, server), this)
+        server.pluginManager.registerEvents(EventListener(config, essentials, getMultiverseCore(), commandC, server), this)
         getCommand("superutils reload")?.setExecutor(CommandReload(this))
+        getCommand("scheduleshutdown")?.setExecutor(CommandScheduleShutdown(this))
         getCommand("c")?.setExecutor(commandC)
 
         if (essentials != null) {

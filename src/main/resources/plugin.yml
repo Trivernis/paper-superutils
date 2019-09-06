@@ -25,6 +25,11 @@ commands:
     permission: superutils.wp
     permission-message: You do not have permission!
     usage: /wp {warp}
+  scheduleshutdown:
+    description: schedule a restart
+    permission: superutils.scheduleshutdown
+    permission-message: You do not have permission!
+    usage: /schedulerestart {seconds}
 permissions:
   superutils.reload:
     description: Allows reload command
@@ -37,6 +42,9 @@ permissions:
     default: op
   superutils.wp:
     description: Allow wp command
+    default: op
+  superutils.scheduleshutdown:
+    description: Allow scheduleshutdown command
     default: op
   superutils.*:
     description: Wildcard permission
