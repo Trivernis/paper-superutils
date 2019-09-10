@@ -3,6 +3,8 @@ package net.trivernis.superutils.commands
 import com.earth2me.essentials.Essentials
 import com.earth2me.essentials.Trade
 import com.earth2me.essentials.User
+import net.md_5.bungee.api.ChatColor
+import net.md_5.bungee.api.chat.ComponentBuilder
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
@@ -40,14 +42,17 @@ class CommandWp(private val essentials: Essentials): CommandExecutor, TabComplet
                         essUser.teleport.teleport(warp.block.location, teleportCost, PlayerTeleportEvent.TeleportCause.COMMAND)
                         return true
                     } else {
-                        sender.sendMessage("You do not have enough money for this command.")
+                        sender.spigot().sendMessage(*ComponentBuilder("You do not have enough money for this command.")
+                                .color(ChatColor.RED).create())
                         return true
                     }
                 } else {
-                    sender.sendMessage("Warp \"${args.first()}\" not found")
+                    sender.spigot().sendMessage(*ComponentBuilder("Warp ").append(args.first()).color(ChatColor.RED)
+                            .append(" not found!").color(ChatColor.WHITE).create())
                 }
             } else {
-                sender.sendMessage("You need to specify a warp location.")
+                sender.spigot().sendMessage(*ComponentBuilder("You need to specify a warp location.")
+                        .color(ChatColor.RED).create())
             }
         } else {
             sender.sendMessage("This command can only be executed by a player.");

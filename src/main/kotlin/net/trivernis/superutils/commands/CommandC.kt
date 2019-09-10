@@ -2,6 +2,8 @@ package net.trivernis.superutils.commands
 
 import com.earth2me.essentials.Essentials
 import com.onarandombox.MultiverseCore.MultiverseCore
+import net.md_5.bungee.api.ChatColor
+import net.md_5.bungee.api.chat.ComponentBuilder
 import org.bukkit.GameMode
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
@@ -25,7 +27,8 @@ class CommandC(private var multiverseCore: MultiverseCore?, private var essentia
                         sender.addPotionEffect(PotionEffectType.NIGHT_VISION.createEffect(1000000, 255))
                         essUser.takeMoney(commandCost)
                     } else {
-                        sender.sendMessage("You do not have enough money for this command")
+                        sender.spigot().sendMessage(*ComponentBuilder("You do not have enough money for this command")
+                                .color(ChatColor.RED).create())
                     }
                 } else {
                     sender.gameMode = GameMode.SPECTATOR

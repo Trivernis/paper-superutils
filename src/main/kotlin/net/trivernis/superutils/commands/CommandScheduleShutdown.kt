@@ -1,5 +1,7 @@
 package net.trivernis.superutils.commands
 
+import net.md_5.bungee.api.ChatColor
+import net.md_5.bungee.api.chat.ComponentBuilder
 import java.lang.Double.parseDouble
 import net.trivernis.superutils.SuperUtils
 import org.bukkit.command.Command
@@ -24,7 +26,9 @@ class CommandScheduleShutdown(private val superUtils: SuperUtils): CommandExecut
         sender.server.scheduler.scheduleSyncDelayedTask(superUtils, {
             sender.server.shutdown()
         }, (20*scheduling).toLong())
-        sender.server.broadcastMessage("Server shutdown in $scheduling seconds!")
+        sender.server.spigot().broadcast(*ComponentBuilder("Server restart in ")
+                .append(scheduling.toString()).color(ChatColor.RED).append("seconds!").color(ChatColor.WHITE)
+                .create())
         return true
     }
 

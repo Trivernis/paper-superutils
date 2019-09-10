@@ -30,6 +30,11 @@ commands:
     permission: superutils.scheduleshutdown
     permission-message: You do not have permission!
     usage: /schedulerestart {seconds}
+  unstuck:
+    description: Teleports you to unstuck you.
+    permission: superutils.unstuck
+    permission-message: You do not have permission!
+    usage: /unstuck
 permissions:
   superutils.reload:
     description: Allows reload command
@@ -45,6 +50,9 @@ permissions:
     default: op
   superutils.scheduleshutdown:
     description: Allow scheduleshutdown command
+    default: op
+  superutils.unstuck:
+    description: Allow unstuck command
     default: op
   superutils.*:
     description: Wildcard permission

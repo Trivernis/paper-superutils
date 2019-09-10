@@ -2,6 +2,8 @@ package net.trivernis.superutils.commands
 
 import com.earth2me.essentials.Essentials
 import com.earth2me.essentials.UserData
+import net.md_5.bungee.api.ChatColor
+import net.md_5.bungee.api.chat.ComponentBuilder
 import org.bukkit.Location
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
@@ -35,21 +37,24 @@ class CommandH(private var essentials: Essentials) : CommandExecutor, TabComplet
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (sender is Player && command.testPermission(sender)) {
             val essUser = essentials.getUser(sender)
-            val userHome: Location
+            val userHome: Location?
             userHome = if (args.isNotEmpty()) {
                 try {
                     essUser.getHome(args[0])
                 } catch (e: Exception) {
                     null
-                } as Location
+                }
             } else {
                 essUser.getHome("home")
             }
             if (userHome != null) {
-                essUser.teleport.teleport(userHome.block.location, null, PlayerTeleportEvent.TeleportCause.COMMAND)
-                essUser.sendMessage("You have been teleported home.")
+                essUser.teleport.teleport(userHome.block.location, null,
+                        PlayerTeleportEvent.TeleportCause.COMMAND)
+                sender.spigot().sendMessage(*ComponentBuilder("You have been teleported home.")
+                        .color(ChatColor.YELLOW).create())
             } else {
-                essUser.sendMessage("The specified home was not found.")
+                sender.spigot().sendMessage(*ComponentBuilder("The specified home was not found.")
+                        .color(ChatColor.RED).create())
             }
             return true
         } else {
