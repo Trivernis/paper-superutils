@@ -35,6 +35,11 @@ commands:
     permission: superutils.unstuck
     permission-message: You do not have permission!
     usage: /unstuck
+  generateChunks:
+    description: Generates chunks for given coordinates
+    permission: superutils.generatechunks
+    permission-message: You do not have permission
+    usage: /generatechunks [{x1} {x2} {y1} {y2}]
 permissions:
   superutils.reload:
     description: Allows reload command
@@ -53,6 +58,9 @@ permissions:
     default: op
   superutils.unstuck:
     description: Allow unstuck command
+    default: op
+  superuitls.generatechunks:
+    description: Allows chunkgen command
     default: op
   superutils.*:
     description: Wildcard permission

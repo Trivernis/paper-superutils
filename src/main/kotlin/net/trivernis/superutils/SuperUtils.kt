@@ -3,6 +3,7 @@ package net.trivernis.superutils
 import com.earth2me.essentials.Essentials
 import com.onarandombox.MultiverseCore.MultiverseCore
 import net.trivernis.superutils.commands.*
+import net.trivernis.superutils.lib.ChunkGenerationManager
 import org.bukkit.plugin.java.JavaPlugin
 
 class SuperUtils : JavaPlugin() {
@@ -18,6 +19,7 @@ class SuperUtils : JavaPlugin() {
         getCommand("superutils reload")?.setExecutor(CommandReload(this))
         getCommand("scheduleshutdown")?.setExecutor(CommandScheduleShutdown(this))
         getCommand("c")?.setExecutor(commandC)
+        getCommand("generatechunks")?.setExecutor(CommandGenerateChunks(this, server))
 
         if (essentials != null) {
             logger.info("Registering short forms for Essentials plugin features.")
