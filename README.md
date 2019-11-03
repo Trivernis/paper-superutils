@@ -1,3 +1,3 @@
 # Superutils
 
-Untility commands for papermc relying on essentials.
+Utility commands for papermc relying on essentials.
